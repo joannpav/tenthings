@@ -1,0 +1,24 @@
+{% extends "aboutme/base.html" %}
+{% block main_content %}
+<div class="white_bg_index">
+	<div class="leftbar"></div>
+	<div class="middle_index">
+			<br />
+			<form action="/create_user/" method="Post">				
+				Login<br />
+				Email: <input type="text" name="email" /><br />
+				Password: <input type="password" name="password" /><br />
+				<input type="submit" value="Login" />
+				Create New Account<br />
+				Username: 
+				http://10ThingsAbout.Me/<input type="text" name="username" /><br />
+				Email: <input type="text" name="email" /><br />
+				Password: <input type="password" name="password" /><br />
+				
+				<input type="submit" value="Create Account" />
+				
+			</form> 
+	</div>
+	<div class="rightbar"></div>
+</div>
+{% endblock %}

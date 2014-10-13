@@ -1,0 +1,24 @@
+{% extends "aboutme/base.html" %}
+{% block main_content %}
+<div class="white_bg_index">
+	<div class="leftbar"></div>
+	<div class="middle_index">
+			<h1>My Account</h1>
+			<strong>Welcome, {{ name|capfirst }}!</strong>
+			<br><br>
+			<fieldset class="my_account">
+			{% for thing in things %}
+				{{ thing }}
+			{% empty %}
+				You have nothing :(
+			{% endfor %}
+			</fieldset>
+			<br>
+			<fieldset class="my_account">
+			<legend>Account Settings</legend>
+			<li><a href="{% url django.contrib.auth.views.password_change %}">Change Password</a></li>
+			</fieldset>	
+	</div>
+	<div class="rightbar"></div>
+</div>
+{% endblock %}

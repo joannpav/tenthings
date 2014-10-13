@@ -1,0 +1,55 @@
+{% extends "aboutme/base.html" %}
+{% block main_content %}
+<div class="white_bg_login">
+	<div class="leftbar"></div>
+	<div class="register">
+			{% if form.errors %}
+				<ul class="errorlist">
+					<li>You entered an invalid username or password.</li>
+				</ul>
+				<br />
+			{% endif %}
+			
+			<form method="post" action="{% url django.contrib.auth.views.login %}">
+			<div class="login_container_login">
+				
+				
+				<div class="login_text"><div class="text_field_login">{{ form.username.label_tag }}:</div>
+				
+				{% if messages %}
+				<div class="invalid">
+					{% for message in messages %}
+						<div{% if message.tags %}
+							class="{{ message.tags }}"{% endif %}>
+							{{ message }}</div>
+					{% endfor %}
+				</div>
+				{% endif %}
+				<div class = "login_holder">
+				<div class="login_box">{{ form.username }}	</div>
+				</div>
+				</div>
+				<div class="login_text"><div class="text_field_login">{{ form.password1.label_tag }}:</div>
+				<div class = "login_holder">				
+					<div class = "login_box">{{ form.password1 }}</div>
+				</div>
+				</div>
+				
+				
+				<div class="login_text"><div class="text_field_login"></div>
+				<div>					
+					<input type="image" value="Login" name="submit" src="/site_media/img/login.GIF" /><a class="loginA" href="{% url register %}"><img class="loginA" src="/site_media/img/register.GIF" /></a>
+				</div>
+				</div>
+				
+				</div>
+			</div>
+			<input type ="hidden" name="next" value="{{ next }}" />
+			</form>
+	</div>
+	<div class="rightbar"></div>
+</div>
+{% endblock %}
+{% block meat_content %}
+	
+{% endblock %}

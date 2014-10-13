@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-us" xml:lang="en-us" >
+
+
+<head>
+{% block header %}
+<title>10 Things About Me!</title>
+{% endblock %}
+<style type="text/css">
+    .hover { background-color: #ffC }
+	.edit-placeholder { font-style: italic; color: #555; }
+</style>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="description" content="Share 10 random facts, funny tidbits or future goals with your friends">
+<meta name="keywords" content="10 things about me, facts about me, my goals, friends goals, facts about friends">
+<link rel="stylesheet" type="text/css" href="/site_media/css/index.css" />
+<link rel="shortcut icon" href="/site_media/img/favicon.ico" />
+<script type="text/javascript">
+ <!-- to do:  put in google analytics -->
+</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript" src="/site_media/js/jquery.jeditable.mini.js"></script>
+
+<script type="text/javascript">
+<!-- http://www.appelsiini.net/projects/jeditable -->
+$(document).ready(function() {
+ 
+ $('.edit_area').editable('/save/', {
+		indicator : '<img src="img/indicator.gif">',		
+        type      : 'textarea',
+        cancel    : 'Cancel',
+        submit    : 'OK',        
+        tooltip   : 'Click to edit...'
+});
+
+ $('.comment').editable('/save_comment/', {
+		indicator : '<img src="img/indicator.gif">',		
+        type      : 'textarea',
+		cssclss	  : 'styled',
+        cancel    : 'Cancel',
+        submit    : 'OK',         
+        tooltip   : 'Click to edit...'
+});
+
+//$('.delcomment').select('/delete_comment/', {
+//		indicator : '<img src="img/indicator.gif">',		
+//        tooltip   : 'Click to delete comment'
+//});
+
+$('.edit').editable('/save/', {
+	cancel: "Cancel",
+    submit: "OK",
+    tooltip: "Click to edit.",
+ });
+ 
+$('.edit_image').editable('/saveimage/', {          
+         cancel    : 'Cancel',
+         submit    : 'OK',                  
+ });
+
+var d = new Date();
+//$('#edit_img').click(function () {	
+//	$("img:last").attr({src: "/site_media/images/profile/" + x + "?timestamp=" + d.getTime()})
+//	});
+$('#buttonUpload').click(function () {	
+	$("button").onClick('/saveimage/');	
+ });
+ });
+</script>
+
+
+
+</head>
+<body>
+<!-- $("#RefreshImage").attr("src", "/site_media/images/profile/{{ person.id }}?timestamp=" + new Date().getTime()); -->
+
+<div id="toplinks">
+					<div class="userlinks">						
+						{% if user.is_authenticated %}
+							<div class="userlink_box"><a class="userlinks" href="/{{ user.username }}">My Account</a></div>
+							<div class="userlink_box"><a class="userlinks" href="{% url django.contrib.auth.views.logout %}">Logout</a></div>
+						{% else %}
+							<div class="userlink_box"><a class="userlinks" href="{% url register %}">Sign Up</a></div>
+							<div class="userlink_box"><a class="userlinks" href="{% url django.contrib.auth.views.login %}">Login</a></div>
+						{% endif %}
+					</div>
+</div>
+<div id="container">
+<div id="header">
+	<div id="logo" class="logo">		
+		<a href="/" ><img class="logo" src="/site_media/img/10ThingsAbout.me.GIF"></a>					
+	</div>
+	<div id="tagline">
+	Find out more about your friends, share 10 things with them and ask them to share back.
+	<div class="search_container2">
+		<div class="search_box_container">
+			
+		</div>
+		
+	</div>
+	</div>
+	<div id="social_cont">	
+					
+		<div class="follow_container">
+		<div class="ad">
+		
+		</div>
+		
+					<div class="search_box_container">
+						<a class="social"  name="fb_share" type="button" href="http://www.facebook.com/sharer.php">Share</a><script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script> 
+						<br>
+						<a href="http://www.twitter.com/hatzillion"><img class="social" src="http://twitter-badges.s3.amazonaws.com/twitter-b.png" alt="Follow hatzillion on Twitter"/></a>
+					</div>
+		
+			<div style="overflow: hidden; float: right;">
+				<div class="search_container">
+					<div class="search_box_container">
+					
+					</div>
+					  
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</form>
+</div>
+
+<div class="contents">
+	{% block main_content %}
+	{% endblock %}
+	{% block meat_content %}
+	
+	<br><br>
+	<div id="thingsAbout_BG" class="thingsAbout_BG">	
+	
+	{% for things in thing_list %}		
+		<div class="bubble">						
+			{% csrf_token %}			
+			<div class="edit" id="{{ things.id }}" name="{{ things.id }}" value="{{ things }}">{{ things|escape }}</div>									
+			<!-- <div class="edit_delete">Click Text to Edit</div>		 -->
+		</div>
+	{% endfor %}
+	{{ blanks }}
+	<!-- {% for i in blanks  %}
+		<div class="bubble">						
+			{% csrf_token %}			
+			<div class="edit" id="{{ i }}" name="{{ i }}" value="">hello {{ i }}</div>									
+			<div class="edit_delete">Click Text to Edit</div>		
+		</div>		
+	{% endfor %} -->
+	</div>
+	{% endblock %}
+</div>
+<div id="right">
+</div>
+</div>
+<!--div class="footer"-->
+<div id="toplinks">
+					<div class="userlinks">						
+							<div class="userlink_box">Copyright &copy; 2011 </div>
+					</div>
+</div>
+</p>
+
+<!--/div-->
+</div>
+</div>
+
+</body>
+</html>
+

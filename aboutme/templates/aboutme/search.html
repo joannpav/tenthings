@@ -1,0 +1,60 @@
+{% extends "aboutme/base.html" %}
+{% block main_content %}
+<div class="white_bg_search">
+	<div class="leftbar"></div>
+	<div class="profile_middle_index">
+		<form method="post" action="{% url tenthings.aboutme.views.search %}">
+			<div class="search_container_search">							
+				<!-- <div class="login_text"><div class="text_field_login">Search</div> -->
+				
+					{% if messages %}
+					<div class="invalid">
+						{% for message in messages %}
+							<div{% if message.tags %}
+								class="{{ message.tags }}"{% endif %}>
+								{{ message }}</div>
+						{% endfor %}
+				<!--/div-->
+					</div>
+					{% endif %}
+			</div>
+		</form>
+			
+		
+		<!--form id="search" name="search" method="POST"-->
+		
+
+		<div class="search_group">
+			<form method="post" action="{% url tenthings.aboutme.views.search %}">
+			<div class = "search_holder">				
+				<div class="search_box" id="q" name="q"><input class="login_box" type="text" id="q" maxlength="2000" name="q"></div>		
+			</div>
+			<div class="searchinfo">(search by username, email address)</div>		
+			<!--input type="text" id="q" maxlength="2000" name="q"-->
+			<div class="searchbutton"><input type="image" name="submit" src="/site_media/img/search.GIF" /></div>
+			</form>
+		</div>
+		<div class="friendgroup">
+			{% for f in found_friends %}
+			<form id="addfriend" name="addfriend"  action="/addfriend/{{ f.id }}/" method="POST">				
+					<!--div class="friend"><img class="friend_pic" src="/site_media/images/profile/{{ f.id }}"></img><div class="friend">{{ f.username }}</div></div>
+					<div id="buttonAdd" class="buttonAdd"><button class="buttonAdd" id="add">Add</button></div-->		
+
+					<div class="friendpic"><div class="post-bubble"><img class="friend_pic" src="/site_media/images/profile/{{ f.id }}"></img></div>
+						<div class="friend"><a class="friend" href="/{{ f.username }}">{{ f.username }}</a>
+						<div id="buttonAdd" class="buttonAdd"><button class="buttonAdd" id="add">Add</button></div></div>
+					</div>					
+				<!--img src="/site_media/img/add.GIF"></img-->
+			</form>
+			{% endfor %}
+		</div>
+			
+	</div>		
+	</div>
+</div>
+	<div class="rightbar"></div>
+</div>
+{% endblock %}
+{% block meat_content %}
+	
+{% endblock %}

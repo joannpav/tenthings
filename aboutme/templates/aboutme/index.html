@@ -1,0 +1,82 @@
+{% extends "aboutme/base.html" %}
+{% block main_content %}
+<div class="white_bg_index">
+	<div class="leftbar"></div>
+	<div class="profile_middle_index">
+		<div class="">
+		
+			<div class="edit_img" id="edit_img">	
+				<script name="javascript">
+					var x = "{{ request.user.id }}";
+				</script>
+		
+				<div class="my_name">
+					<div class="namebox">
+						{{ name }}
+					</div>
+					{% if has_photo.image_mimetype == none %}			
+						<img src="/site_media/img/guy1.GIF"></img>
+					{% else %}	
+						<div class="RefreshImage"><div class="post-bubble"><img class="RefreshImage" id="RefreshImage" name="RefreshImage" src="/site_media/images/profile/{{ personid }}"></img></div></div>
+					{% endif %}
+					<form id="image_upload" name="image_upload"  action="/saveimage/{{ request.user.id }}/" method="POST" enctype="multipart/form-data">
+						<div id="image_slot"></div>
+						Upload image:<br />
+						<input type="file" name="image" id="image" /><br />
+						<div id="buttonUpload"><button class="button_upload" id="upload"><img src="/site_media/img/upload.GIF"</img></button></div>
+					</form>
+					<div class="friendlist">
+						<div class="friendtitle">MY FRIENDS</div>
+						<div class="friendaddtitle"><a class="friendaddtitle" href="{% url tenthings.aboutme.views.searchpage %}">ADD</a></div>
+					</div>	
+					<div class="friendgroup_prof">
+					{% for f in friend_list %}
+						<div class="friendpic"><div class="post-bubble"><img class="friend_pic" src="/site_media/images/profile/{{ f.friend.id }}"></img></div>
+							<div class="friend"><a class="friend" href="/{{ f.friend.username }}">{{ f.friend.username }}</a></div>
+						</div>
+					{% endfor %}
+					</div>
+					
+				
+				</div>		
+
+				<div class="thinglistbox">		
+				{% for things in thing_list %}		
+					<div class="thinglist">	
+						<!--div class="edit_box"-->
+						<div class="edit_box">
+							{% csrf_token %}	
+							
+							<div class="edit_area" id="{{ things.id }}" name="{{ things.id }}" value="{{ things }}">{{ things|escape }}</div>
+							
+							{% for comment in comment_list %}
+								{% if comment.thing_id == things.id %}
+									<div class="comments"  id="{{comment.id}}"name="{{ comment.id }}" value="{{ comment.id }}">
+										<form  action="/delete_comment/{{ comment.id }}/" method="POST" >											
+											<b>{{comment.friend}} said: </b>{{ comment }}
+												<input type="hidden" value="{{ comment.id }}" name = "id" />
+												<input type="submit" class="delcomm" value="X">											
+										</form>
+									</div>
+									<div class="bottomborder"></div>
+								{% endif %}
+							{% endfor %}
+							<div class="bottomborder"></div>
+						</div>
+						<div class="comment" id="{{ things.id }}" name="{{ things.id }}" value="{{ things }}">Comment</div><!--div class="comment" name="Like">I did it!</div>
+						<div class="challenge" name="Challenge">Create Challenge</button></div-->
+					</div>
+				{% endfor %}
+				
+			</div>
+		
+			<!-- <form id="image_upload" name="image_upload"  action="/saveimage/{{ person.id }}" method="POST" enctype="multipart/form-data"> -->
+
+		</div>		
+		</div>
+	</div>
+	<div class="rightbar"></div>
+</div>
+{% endblock %}
+{% block meat_content %}
+{% endblock %}

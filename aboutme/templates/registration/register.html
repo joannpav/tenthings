@@ -1,0 +1,57 @@
+{% extends "aboutme/base.html" %}
+{% block main_content %}
+<div class="white_bg_index">
+	<div class="leftbar"></div>
+	<div class="register">
+			{% if messages %}
+				<div class="invalid">
+					{% for message in messages %}
+						
+						<div{% if message.tags %}
+							class="{{ message.tags }}"{% endif %}>
+							{{ message }}</div>
+					{% endfor %}
+				</div>
+				<br>
+			{% endif %}	
+			<div class="usernameurl">http://10ThingsAbout.me/MyUserName	</div>
+			
+			
+			<form method="post" action=".">	
+			<div class="login_container">
+				<div class="login_text"><div class="text_field">{{ form.username.label_tag }}:</div>	
+							
+				<div class = "login_holder">				
+				<div class="login_box">{{ form.username }}	</div>
+				</div>
+				</div>
+				<div class="login_text"><div class="text_field">{{ form.password1.label_tag }}:</div>
+				<div class = "login_holder">				
+					<div class = "login_box">{{ form.password1 }}</div>
+				</div>
+				</div>
+				<div class="login_text"><div class="text_field">{{ form.password2.label_tag }}:</div>
+				<div class = "login_holder">
+					<div class = "login_box">{{ form.password2 }}</div>
+				</div>
+				</div>
+				<div class="login_text"><div class="text_field">{{ form.email.label_tag }}:</div>
+				<div class = "login_holder">					
+					<div class = "login_box">{{ form.email }}</div>		
+				</div>
+				</div>
+				<div class="login_text"><div class="text_field"></div>
+				<div>					
+					<input type="image" value="Register" name="submit" src="/site_media/img/submit.GIF" />
+				</div>
+				</div>
+			</div>
+			</form>
+	</div>
+	<div class="rightbar"></div>
+</div>
+{% endblock %}
+
+{% block meat_content %}
+	
+{% endblock %}
